@@ -136,4 +136,27 @@ describe('Them', function() {
         });
 
     });
+
+    describe('#getLib()', function() {
+
+        it('should return the default lib folder', function() {
+            // given
+            them.init(fakeContext, {});
+            // when
+            var lib = them.getLib();
+            // then
+            expect(lib).to.equal("./lib");
+        });
+
+        it('should return the default lib folder', function() {
+            // given
+            process.env.THEM_LIB = './lib_cov';
+            them.init(fakeContext, {});
+            // when
+            var lib = them.getLib();
+            // then
+            expect(lib).to.equal("./lib_cov");
+        });
+
+    });
 });
