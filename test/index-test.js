@@ -3,7 +3,9 @@ var them = require("../lib/index.js"),
     sinon = require("sinon").sandbox;
 
 var fakeModule = {
-    SubClass: {}
+    SubClass: {
+        SubSub: {}
+    }
 };
 var fakeModule2 = {};
 var myModule = {};
@@ -100,6 +102,20 @@ describe('Them', function() {
             // when
             them(function(name) {
                 expect(name).to.equal(fakeModule.SubClass);
+            });
+            // then
+            expect(fakeContext.require.calledOnce).to.be.true;
+            expect(fakeContext.require.calledWith("module")).to.be.true;
+        });
+
+        it('should require sub-submodule', function() {
+            // given
+            them.init(fakeContext, {
+                name: "module#SubClass.SubSub"
+            });
+            // when
+            them(function(name) {
+                expect(name).to.equal(fakeModule.SubClass.SubSub);
             });
             // then
             expect(fakeContext.require.calledOnce).to.be.true;
